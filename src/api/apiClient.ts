@@ -26,13 +26,11 @@ class ApiClient {
     axiosRetry(this.client, {
       retries: 3, // Number of retry attempts
       retryDelay: axiosRetry.exponentialDelay, // Use exponential backoff delay
-      retryCondition: () => {
+      retryCondition: error => {
         // Retry on network errors or 5xx server errors
-        return true
-      },
-      onRetry: (retryCount, error, requestConfig) => {
-        console.log(`Retry attempt #${retryCount} for ${requestConfig.url}`)
-        console.log(`Retry error`, error)
+        return (
+          axiosRetry.isNetworkError(error) || axiosRetry.isRetryableError(error)
+        )
       }
     })
 
@@ -43,7 +41,7 @@ class ApiClient {
 
     // Add response interceptor
     this.client.interceptors.response.use(this.handleResponse, async error => {
-      return Promise.reject(handleApiError(error)) // Reject the promise with the handled error
+      return Promise.reject(error?.response?.data?.description) // Reject the promise with the handled error
     })
   }
 
