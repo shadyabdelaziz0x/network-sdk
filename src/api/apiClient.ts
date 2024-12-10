@@ -31,8 +31,7 @@ class ApiClient {
       try {
         await retryRequest(error, this.client)
       } catch (retryError) {
-        console.log('CAUGHT ERROR => ', retryError)
-        handleApiError(retryError) // Call error handler after retries are exhausted
+        return Promise.reject(handleApiError(retryError)) // Call error handler after retries are exhausted
       }
     })
   }
