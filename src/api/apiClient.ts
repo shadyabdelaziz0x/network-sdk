@@ -35,9 +35,9 @@ class ApiClient {
     })
 
     // Add request interceptor
-    this.client.interceptors.request.use(this.handleRequest, error =>
-      Promise.reject(handleApiError(error))
-    )
+    this.client.interceptors.request.use(this.handleRequest, error => {
+      return Promise.reject(handleApiError(error))
+    })
 
     // Add response interceptor
     this.client.interceptors.response.use(this.handleResponse, async error => {
