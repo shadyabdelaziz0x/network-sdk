@@ -4,7 +4,7 @@ import axios, {
   InternalAxiosRequestConfig,
   AxiosResponse
 } from 'axios'
-import { retryRequest } from '../utils/retryHandler'
+// import { retryRequest } from '../utils/retryHandler'
 import { Cache } from '../utils/cache'
 import { handleApiError } from '../utils/errorHandler'
 import axiosRetry from 'axios-retry'
@@ -26,14 +26,13 @@ class ApiClient {
     axiosRetry(this.client, {
       retries: 3, // Number of retry attempts
       retryDelay: axiosRetry.exponentialDelay, // Use exponential backoff delay
-      retryCondition: error => {
+      retryCondition: () => {
         // Retry on network errors or 5xx server errors
-        return (
-          axiosRetry.isNetworkError(error) || axiosRetry.isRetryableError(error)
-        )
+        return true
       },
       onRetry: (retryCount, error, requestConfig) => {
         console.log(`Retry attempt #${retryCount} for ${requestConfig.url}`)
+        console.log(`Retry error`, error)
       }
     })
 
