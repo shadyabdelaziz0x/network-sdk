@@ -40,7 +40,7 @@ class ApiClient {
 
     // Add response interceptor
     this.client.interceptors.response.use(this.handleResponse, async error => {
-      return Promise.reject(error?.response?.data?.description) // Reject the promise with the handled error
+      return Promise.reject({ ...error }) // Reject the promise with the handled error
     })
   }
 
