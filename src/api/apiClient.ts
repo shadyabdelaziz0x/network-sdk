@@ -7,6 +7,7 @@ import axios, {
 import { retryRequest } from '../utils/retryHandler'
 import { Cache } from '../utils/cache'
 import { handleApiError } from '../utils/errorHandler'
+import axiosRetry from 'axios-retry'
 
 class ApiClient {
   private client: AxiosInstance
@@ -21,6 +22,21 @@ class ApiClient {
       headers: { 'Content-Type': 'application/json' }
     })
 
+    // Configure axios-retry
+    axiosRetry(this.client, {
+      retries: 3, // Number of retry attempts
+      retryDelay: axiosRetry.exponentialDelay, // Use exponential backoff delay
+      retryCondition: error => {
+        // Retry on network errors or 5xx server errors
+        return (
+          axiosRetry.isNetworkError(error) || axiosRetry.isRetryableError(error)
+        )
+      },
+      onRetry: (retryCount, error, requestConfig) => {
+        console.log(`Retry attempt #${retryCount} for ${requestConfig.url}`)
+      }
+    })
+
     // Add request interceptor
     this.client.interceptors.request.use(this.handleRequest, error =>
       Promise.reject(error)
@@ -28,14 +44,8 @@ class ApiClient {
 
     // Add response interceptor
     this.client.interceptors.response.use(this.handleResponse, async error => {
-      try {
-        await retryRequest(error, this.client) // Try to retry the request
-      } catch (retryError) {
-        console.log('HERERERERE')
-        const handledError = handleApiError(retryError)
-        return Promise.reject(handledError) // Reject the promise with the handled error
-      }
-      return Promise.reject(error)
+      const handledError = handleApiError(error)
+      return Promise.reject(handledError) // Reject the promise with the handled error
     })
   }
 
