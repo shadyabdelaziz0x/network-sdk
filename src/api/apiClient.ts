@@ -29,8 +29,7 @@ class ApiClient {
     // Add response interceptor
     this.client.interceptors.response.use(this.handleResponse, async error => {
       try {
-        await retryRequest(error, this.client) // Try to retry the request
-        return Promise.reject(error)
+        retryRequest(error, this.client) // Try to retry the request
       } catch (retryError) {
         const handledError = handleApiError(retryError)
         return Promise.reject(handledError) // Reject the promise with the handled error
