@@ -1,6 +1,12 @@
+interface APIError {
+  data: {
+    message: string
+  }
+}
+
 export const handleApiError = (error: any): string => {
   const status = error?.response?.status
-  const message = error?.response?.data?.description || 'Unknown error occurred'
+  const message = error?.response?.data || 'Unknown error occurred'
 
   console.log('ERROR HANDLER => ', error)
   switch (status) {

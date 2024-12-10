@@ -57,8 +57,7 @@ class ApiClient {
   }
 
   private getToken(): string | null {
-    // Implement secure token retrieval (e.g., from SecureStorage or AsyncStorage)
-    return 'your-token' // Replace with real token retrieval logic
+    return null
   }
 
   public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {

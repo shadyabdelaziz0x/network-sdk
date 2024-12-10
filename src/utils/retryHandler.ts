@@ -19,7 +19,7 @@ export const retryRequest = async (
   }
 
   config._retryCount = (configRetryCount || 0) + 1
-  console.log('RETRY => ', config)
+  console.log('RETRY => ', error)
   // Wait before retrying
   await new Promise(resolve => setTimeout(resolve, 1000 * configRetryCount))
 
