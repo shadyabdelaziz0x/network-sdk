@@ -31,6 +31,7 @@ class ApiClient {
       try {
         await retryRequest(error, this.client) // Try to retry the request
       } catch (retryError) {
+        console.log('HERERERERE')
         const handledError = handleApiError(retryError)
         return Promise.reject(handledError) // Reject the promise with the handled error
       }
