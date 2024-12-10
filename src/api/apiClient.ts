@@ -7,7 +7,6 @@ import axios, {
 // import { retryRequest } from '../utils/retryHandler'
 import { Cache } from '../utils/cache'
 import axiosRetry from 'axios-retry'
-import { handleApiError } from '../utils/errorHandler'
 
 class ApiClient {
   private client: AxiosInstance
