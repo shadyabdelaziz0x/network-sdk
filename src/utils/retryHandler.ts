@@ -12,7 +12,7 @@ export const retryRequest = async (
   if (!config || configRetryCount >= MAX_RETRIES) {
     throw error // Exceeded max retries
   }
-
+  console.log('RETRY')
   // Only retry on certain HTTP status codes (e.g., server errors)
   if (!NON_RETRYABLE_RESPONSE_CODES.includes(error.response?.status || 0)) {
     throw error // Do not retry on client-side or non-retryable errors
