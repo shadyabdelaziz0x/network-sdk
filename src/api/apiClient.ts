@@ -49,6 +49,7 @@ class ApiClient {
 
   private handleResponse = (response: AxiosResponse): AxiosResponse => {
     // Cache GET responses
+    console.log('HANDLE RESPONSE => ', response)
     if (response.config.method === 'get') {
       this.cache.set(response.config.url!, response.data)
     }

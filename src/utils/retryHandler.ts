@@ -9,7 +9,6 @@ export const retryRequest = async (
 ) => {
   const config = error.config as InternalAxiosRequestConfig
   const configRetryCount = config?._retryCount ?? 0
-
   if (!config || configRetryCount >= MAX_RETRIES) {
     throw error // Exceeded max retries
   }
@@ -20,7 +19,7 @@ export const retryRequest = async (
   }
 
   config._retryCount = (configRetryCount || 0) + 1
-
+  console.log('RETRY => ', config)
   // Wait before retrying
   await new Promise(resolve => setTimeout(resolve, 1000 * configRetryCount))
 
