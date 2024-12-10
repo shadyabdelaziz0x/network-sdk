@@ -1,7 +1,12 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { handleApiError } from '../utils/errorHandler'
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+  AxiosResponse
+} from 'axios'
 import { retryRequest } from '../utils/retryHandler'
 import { Cache } from '../utils/cache'
+import { handleApiError } from '../utils/errorHandler'
 
 class ApiClient {
   private client: AxiosInstance
@@ -22,13 +27,18 @@ class ApiClient {
     )
 
     // Add response interceptor
-    this.client.interceptors.response.use(
-      this.handleResponse,
-      error => retryRequest(error, this.client) // Retry failed requests
-    )
+    this.client.interceptors.response.use(this.handleResponse, async error => {
+      try {
+        await retryRequest(error, this.client)
+      } catch (retryError) {
+        handleApiError(retryError) // Call error handler after retries are exhausted
+      }
+    })
   }
 
-  private handleRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  private handleRequest = (
+    config: InternalAxiosRequestConfig
+  ): InternalAxiosRequestConfig => {
     // Attach token if available
     const token = this.getToken()
     if (token) {

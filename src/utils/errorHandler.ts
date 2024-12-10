@@ -1,6 +1,6 @@
 export const handleApiError = (error: any): string => {
   const status = error?.response?.status
-  const message = error?.response?.data?.message || 'Unknown error occurred'
+  const message = error?.response?.data?.description || 'Unknown error occurred'
 
   switch (status) {
     case 400:
@@ -12,7 +12,9 @@ export const handleApiError = (error: any): string => {
     case 404:
       return 'Not Found: Resource does not exist.'
     case 500:
-      return 'Server Error: Please try again later.'
+      return `Server Error: Please try again later.\n${message}`
+    case 502:
+      return `Bad Gateway: Server issue.\n${message}`
     default:
       return `Error: ${message}`
   }
