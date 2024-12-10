@@ -2,7 +2,6 @@ export const handleApiError = (error: any): string => {
   const status = error?.response?.status
   const message = (error?.response?.data?.description ||
     'Unknown error occurred') as string
-  console.log('HANDLE ERROR => ', error)
   switch (status) {
     case 400:
       return `Bad Request: ${message}`
