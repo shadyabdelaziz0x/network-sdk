@@ -7,6 +7,7 @@ import axios, {
 // import { retryRequest } from '../utils/retryHandler'
 import { Cache } from '../utils/cache'
 import axiosRetry from 'axios-retry'
+import { handleApiError } from '../utils/apiError'
 
 class ApiClient {
   private client: AxiosInstance
@@ -35,7 +36,7 @@ class ApiClient {
 
     // Add request interceptor
     this.client.interceptors.request.use(this.handleRequest, error =>
-      Promise.reject(error)
+      Promise.reject(handleApiError(error))
     )
 
     // Add response interceptor
