@@ -1,6 +1,6 @@
 {
-  "name": "network-sdk",
-  "version": "0.1.1",
+  "name": "@shady0x7cb/network-sdk",
+  "version": "0.0.1",
   "description": "A library of network business logic SDK in TypeScript that encapsulates the logic for fetching movie data from the API.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -23,7 +23,7 @@
     "url": "https://github.com/shadyabdelaziz0x/network-sdk.git",
     "type": "git"
   },
-  "author": "Shady Farahat <shady.abdelaziz.farahat@gmail.com>",
+  "author": "shady.abdelaziz.farahat <shady@itsacheckmate.com>",
   "keywords": [
     "react",
     "movie",
