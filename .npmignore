@@ -1,0 +1,15 @@
+/dist/bundle_sizes.html
+/node_modules
+/src
+.eslintignore
+.eslintrc
+.eslintrc.json
+.gitignore
+.prettierignore
+.prettierrc
+tsconfig.json
+webpack.config.base.js
+webpack.config.dev.js
+webpack.config.prod.js
+yarn.lock
+yarn-error.log
