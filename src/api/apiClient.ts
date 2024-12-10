@@ -31,6 +31,7 @@ class ApiClient {
       try {
         await retryRequest(error, this.client)
       } catch (retryError) {
+        console.log('CAUGHT ERROR => ', retryError)
         handleApiError(retryError) // Call error handler after retries are exhausted
       }
     })
@@ -49,7 +50,6 @@ class ApiClient {
 
   private handleResponse = (response: AxiosResponse): AxiosResponse => {
     // Cache GET responses
-    console.log('HANDLE RESPONSE => ', response)
     if (response.config.method === 'get') {
       this.cache.set(response.config.url!, response.data)
     }

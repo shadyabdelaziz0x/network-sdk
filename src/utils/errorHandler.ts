@@ -2,6 +2,8 @@ export const handleApiError = (error: any): string => {
   const status = error?.response?.status
   const message = error?.response?.data || 'Unknown error occurred'
 
+  console.log('ERROR HANDLER => ', status)
+  console.log('ERROR HANDLER => ', message)
   console.log('ERROR HANDLER => ', error)
   switch (status) {
     case 400:
