@@ -160,6 +160,11 @@ interface Keywords {
   __typename: string
 }
 
+interface FeaturedReviews {
+  edges: Array<ReviewEdge>
+  __typename: string
+}
+
 interface MainDetails {
   id: string
   wins?: AwardConnection
@@ -169,7 +174,7 @@ interface MainDetails {
   genres?: Genre[]
   runtime?: Runtime
   videos?: Video[]
-  featuredReviews?: Array<ReviewEdge>
+  featuredReviews?: FeaturedReviews
   keywords: Keywords
   [key: string]: unknown // Catch-all for additional properties
 }
