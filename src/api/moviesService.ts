@@ -1,3 +1,5 @@
+import { Movie } from '../types/getMovieDetailsResponse'
+import { GetMoviesResponse } from '../types/getMoviesResponse'
 import ApiClient from './apiClient'
 
 class MoviesService {
@@ -8,11 +10,11 @@ class MoviesService {
   }
 
   public getMovies(query: string) {
-    return this.api.get(`/?q=${query}`)
+    return this.api.get<GetMoviesResponse>(`/?q=${query}`)
   }
 
   public getMovie(movieId: string) {
-    return this.api.get(`/?tt=${movieId}`)
+    return this.api.get<Movie>(`/?tt=${movieId}`)
   }
 }
 
