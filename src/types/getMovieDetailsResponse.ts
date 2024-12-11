@@ -118,6 +118,48 @@ interface RatingsSummary {
   voteCount: number
 }
 
+interface ReviewNode {
+  author: {
+    nickName: string
+    __typename: string
+  }
+  summary: {
+    originalText: string
+    __typename: string
+  }
+  text: {
+    originalText: {
+      plainText: string
+      __typename: string
+    }
+    __typename: string
+  }
+  authorRating: number
+  submissionDate: string
+  __typename: string
+}
+
+interface ReviewEdge {
+  node: ReviewNode
+  __typename: string
+}
+
+interface KeywordNode {
+  text: string
+  __typename: string
+}
+
+interface KeywordEdge {
+  node: KeywordNode
+  __typename: string
+}
+
+interface Keywords {
+  total: number
+  edges: Array<KeywordEdge>
+  __typename: string
+}
+
 interface MainDetails {
   id: string
   wins?: AwardConnection
@@ -127,6 +169,8 @@ interface MainDetails {
   genres?: Genre[]
   runtime?: Runtime
   videos?: Video[]
+  featuredReviews?: Array<ReviewEdge>
+  keywords: Keywords
   [key: string]: unknown // Catch-all for additional properties
 }
 
