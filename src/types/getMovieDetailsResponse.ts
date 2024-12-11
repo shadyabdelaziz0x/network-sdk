@@ -1,4 +1,4 @@
-interface Movie {
+interface GetMovieDetailsResponse {
   short: ShortDetails
   imdbId: string
   top: TopDetails
@@ -161,4 +161,4 @@ interface PlaybackURL {
   url: string
 }
 
-export { Movie }
+export { GetMovieDetailsResponse }

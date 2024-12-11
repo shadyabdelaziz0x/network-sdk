@@ -5,7 +5,7 @@ import axios, {
   AxiosResponse
 } from 'axios'
 // import { retryRequest } from '../utils/retryHandler'
-import { Cache } from '../utils/cache'
+import { Cache } from '../utils'
 import axiosRetry from 'axios-retry'
 
 class ApiClient {
