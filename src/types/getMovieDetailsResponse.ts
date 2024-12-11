@@ -76,6 +76,7 @@ interface TopDetails {
   titleGenres?: Genre[]
   ratingsSummary?: RatingsSummary
   keywords: Keywords
+  featuredReviews?: FeaturedReviews
   [key: string]: unknown // Catch-all for additional properties
 }
 
